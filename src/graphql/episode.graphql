@@ -1,4 +1,4 @@
-query character($id: ID!) {
+query episode($id: ID!) {
   episode(id: $id) {
     id,
     name,

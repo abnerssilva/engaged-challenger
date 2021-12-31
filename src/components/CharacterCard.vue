@@ -5,25 +5,24 @@
         <div class="card__face card__face--front block">
           <img :src="image" loading="lazy" alt="" class="pp-front mt-9" />
           <div class="flex justify-center">
-            <h2 class="text-center mt-10 w-11/12"><strong>{{ id }} - <em>{{ shortName }}</em></strong></h2>
+            <h2 class="text-center w-11/12 mt-5"><strong>{{ id }} - <em>{{ shortName }}</em></strong></h2>
           </div>
-          <p class="w-full text-center text-xs mt-2 text-gray-300 cursor-pointer" @click="flipFront()">{{ label }}</p>
+          <p class="w-full text-center text-xs mb-2 text-gray-300 cursor-pointer absolute bottom-0" @click="flipFront()">{{ label }}</p>
         </div>
         
         <div class="card__face card__face--back">
           <div class="card__content">
             <div class="card__header">
               <h2>{{ shortName }}</h2>
-              <img :src="image" loading="lazy" alt="" class="pp mt-3" />
-              <p class="w-full text-center text-xs mt-2 text-gray-300 cursor-pointer" @click="flipBack()">{{ label }}</p>
+              <img :src="image" loading="lazy" alt="" class="pp mt-2" />
+              <p class="w-full text-center text-xs mt-1 text-gray-300 cursor-pointer" @click="flipBack()">{{ label }}</p>
             </div>
             <div class="card__body">
-              <h3 class="arcade text-center">Extras</h3>                      
-              <p class="digital text-base">Status: {{ status }}</p>                       
-              <p class="digital text-base">Espécie: {{ species }}</p>
-              <p class="digital text-base">Planeta: {{ this.character.planet }}</p>
-              <p class="digital text-base">1ª Aparição: Ep.{{ episode[0].id }}: "<em>{{ episode[0].name }}</em>"</p>
-              <div class="text-center mt-2">
+              <h3 class="arcade text-center">Info</h3>                      
+              <p class="digital">Status: {{ status }}</p>                       
+              <p class="digital">Planeta: {{ this.character.planet }}</p>
+              <p class="digital">1ª Aparição: Ep.{{ episode[0].id }}: "<em>{{ episode[0].name }}</em>"</p>
+              <div class="text-center mt-1">
                 <router-link :to="'/about/'+encryptedId">
                   <Button class="p-button-success p-button-text p-button-sm" label="Ver Detalhes" icon="pi pi-check" iconPos="left" />
                 </router-link>
@@ -102,8 +101,8 @@ body {
 }
 
 .card {
-  width: 300px;
-  height: 450px;
+  width: 250px;
+  height: 375px;
   perspective: 1000px;
 }
 
@@ -137,7 +136,7 @@ body {
 
 .card__face--front h2 {
   color: #FFF;
-  font-size: 32px;
+  font-size: 26px;
   font-family: 'Poppins Regular';
 }
 
@@ -153,7 +152,7 @@ body {
 
 .card__header {
   position: relative;
-  padding: 20px;
+  padding: 16px;
 }
 
 .card__header:after {
@@ -193,21 +192,21 @@ body {
 
 .card__header h2 {
   color: #FFF;
-  font-size: 100%;
+  font-size: 80%;
   font-weight: 900;
   text-transform: uppercase;
   text-align: center;
 }
 
 .card__body {
-  padding: 10px;
+  padding: 8px;
   color: green;
 }
 
 .card__body h3 {
   color: white;
-  font-size: 20px;
-  margin-bottom: 10px;
+  font-size: 16px;
+  margin-bottom: 6px;
 }
 
 </style>

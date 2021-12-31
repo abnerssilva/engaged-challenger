@@ -1,6 +1,6 @@
 <template>
   <main class="character">
-    <a href="/"><Button class="p-button-info p-button-text p-button-sm" label="Página Inicial" icon="pi pi-angle-double-left" iconPos="left" /></a>
+    <a href="/characters"><Button class="p-button-info p-button-text p-button-sm" label="Voltar aos Cards" icon="pi pi-angle-double-left" iconPos="left" /></a>
     <div class="flex justify-center">
       <div class="mb-5 bg-white" :style="'border: 15px ridge '+color+';'+' width: 25%; height: 25%;'">
         <img id="imagem" :src="image" alt="foto do personagem" :style="'filter: '+colorFilter+';'+' opacity: '+opacity+';'">
@@ -159,7 +159,7 @@ export default {
 <style scoped>
 
 main {
-  height: 100vh;
+  height: 150vh;
   background: url(../assets/media/images/outerspace.gif);
   background-size: cover;
 }

@@ -1,6 +1,6 @@
 <template>
   <main class="episode" :style="'background: url('+image+'); background-size: 100vw 100vh ;'">
-    <a href="/"><Button class="p-button-info p-button-text p-button-sm" label="Página Inicial" icon="pi pi-angle-double-left" iconPos="left" /></a>
+    <a href="/characters"><Button class="p-button-info p-button-text p-button-sm" label="Voltar aos Cards" icon="pi pi-angle-double-left" iconPos="left" /></a>
     <div class="w-4/6 mx-auto border-dashed border-white border-2 px-4 pt-2 pb-10" style="background-color: rgba(0, 0, 0, 0.5); background-blend-mode: luminosity;">
       <p class="poppins text-justify text-white">
         Este é o Episódio "<em>{{ name }}</em>", ele foi ao ar originalmente nos Estados Unidos em {{ brazilianDate }}.
