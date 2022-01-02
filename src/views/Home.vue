@@ -1,22 +1,24 @@
 <template>
-  <div class="error-class">
-
+  <main class="error-class">
+    <!-- Homepage Title -->
     <h1 class="arcade text-white text-center">Sejam Bem-vindos !!!</h1>
 
-    <div class="flex justify-center">
-      <div id="image" class="my-5 bg-black flex justify-center">
+    <!-- Homepage Figure -->
+    <section class="flex justify-center">
+      <figure id="image" class="my-5 bg-black flex justify-center">
         <img class="m-0 w-full" src="/img/rick-morty.png" alt="foto de rick e morty trocando de dimensão">
-      </div> 
-    </div>
+      </figure> 
+    </section>
 
-    <div class="flex justify-center">
-      <div id="text" class="my-5 bg-black text-center">
+    <!-- App access Button -->
+    <section class="flex justify-center">
+      <div id="button" class="my-5 bg-black text-center">
         <router-link to="/characters">
           <Button class="p-button-success p-button-rounded p-button-lg" label="Acesse a Aplicação" icon="pi pi-check" iconPos="left" />
         </router-link>   
       </div> 
-    </div>  
-  </div>
+    </section>  
+  </main>
 </template>
 
 <script>
@@ -38,19 +40,59 @@ h1 {
 }
 
 #image {
-  width:40%; 
-  height:40%;
+  width: 40%; 
+  height: 40%;
 }
 
-#text{
+#button{
   width: 25%; 
   height: 25%;
 }
 
-@media (max-width: 950px) {
-  #text{
+@media (max-width: 1299.98px) {
+  h1 {
+    font-size: 2.5em;
+  }
+  #image {
+    width: 50%; 
+    height: 50%;
+  }
+
+  #button{
+      width: 50%; 
+      height: 50%;
+  }
+
+}
+
+@media (max-width: 949.98px) {
+  h1 {
+    font-size: 2em;
+  }
+  #image {
+    width: 80%; 
+    height: 80%;
+  }
+
+  #button{
       width: 80%; 
       height: 80%;
   }
 }
+
+@media (max-width: 649.98px) {
+  h1 {
+    font-size: 1.4em;
+  }
+  #image {
+    width: 90%; 
+    height: 90%;
+  }
+
+  #button{
+      width: 80%; 
+      height: 80%;
+  }
+}
+
 </style>

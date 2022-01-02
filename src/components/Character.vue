@@ -1,18 +1,24 @@
 <template>
   <main class="character">
+    <!-- Button to First page app -->
     <a href="/characters"><Button class="p-button-info p-button-text p-button-sm" label="Voltar aos Cards" icon="pi pi-angle-double-left" iconPos="left" /></a>
-    <div class="flex justify-center">
-      <div class="mb-5 bg-white" :style="'border: 15px ridge '+color+';'+' width: 25%; height: 25%;'">
-        <img id="imagem" :src="image" alt="foto do personagem" :style="'filter: '+colorFilter+';'+' opacity: '+opacity+';'">
-      </div> 
-    </div>
-    <div class="w-3/5 mx-auto border-dashed border-white border-2 px-4 pt-2 pb-10">
+    
+    <!-- Character picture -->
+    <section class="flex justify-center">
+      <figure id="divImage" class="mb-5 bg-white" :style="'border-color: '+color+';'">
+        <img id="image" :src="image" alt="foto do personagem" :style="'filter: '+colorFilter+';'+' opacity: '+opacity+';'">
+      </figure> 
+    </section>
+
+    <!-- Character Info -->
+    <section id="divText">
       <p class="poppins text-justify text-white">
         {{ text1 }}<strong>{{ upperName }}</strong> da série Rick and Morty. Sua espécie é {{ specie }} e sua primeira{{ aparison}} aparição no seriado foi no episódio "<em>{{ episodes[0].name }}</em>" exibido na {{ season }}.
         Seu estado de vida atual no seriado é: <span :style="'background-color: '+bgColorText+';'">&nbsp;{{ lifeStatus }}&nbsp;</span>.
       </p><br>
       <p class="poppins text-white text-justify">
         {{ name }} aparece {{ text2 }}: <small>(clique no episódio para saber detalhes específicos dele)</small><br>
+        <!-- Dynamic Episodes List -->
         <ul>
           <li class="list-none inline" v-for="episode in episodes" :key="episode.id">
             <router-link :to="'/episodes/'+btoa(episode.id)">
@@ -21,10 +27,8 @@
           </li>
         </ul>
       </p>
-    </div>
-    
-  </main>
-  
+    </section>
+  </main> 
 </template>
 
 <script>
@@ -67,90 +71,120 @@ export default {
   },
 
   methods: {
+    // Method to "encrypt" the episode ID
     btoa(text) {
       return btoa(text)
+    },
+
+    // Color config according character status
+    statusColorConfig() {
+      if(this.status === 'Alive') {
+        this.color = '#87ce87'
+      } else if(this.status === 'Dead') {
+        this.color = '#fd7171'
+        this.colorFilter = 'grayscale(1)'
+        this.opacity = '0.7'
+      } else {
+        this.color = '#f5f5f5'
+      }
+
+      if(this.status === 'Alive' && this.gender === 'Female') {
+        this.lifeStatus = 'Viva'
+        this.bgColorText = 'green'
+      } else if(this.status === 'Alive' && this.gender === 'Male') {
+        this.lifeStatus = 'Vivo'
+        this.bgColorText = 'green'
+      } else if(this.status === 'Alive' && this.gender === 'Genderless') {
+        this.lifeStatus = 'Vivo'
+        this.bgColorText = 'green'
+      } else if(this.status === 'Alive' && this.gender === 'unknown') {
+        this.lifeStatus = 'Vivo'
+        this.bgColorText = 'green'
+      } else if(this.status === 'Dead' && this.gender === 'Female') {
+        this.lifeStatus = 'Morta'
+        this.bgColorText = 'red'
+      } else if(this.status === 'Dead' && this.gender === 'Male') {
+        this.lifeStatus = 'Morto'
+        this.bgColorText = 'red'
+      } else if(this.status === 'Dead' && this.gender === 'Genderless') {
+        this.lifeStatus = 'Morto'
+        this.bgColorText = 'red'
+      } else if(this.status === 'Dead' && this.gender === 'unknown') {
+        this.lifeStatus = 'Morto'
+        this.bgColorText = 'red'
+      } else {
+        this.lifeStatus = 'Desconhecido'
+        this.bgColorText = 'gray'
+      }
+    },
+
+    // Initial phrase according character gender
+    genderPhrase() {
+      if(this.gender === 'Female') {
+        this.text1 = 'Essa é a personagem '
+      } else {
+        this.text1 = 'Esse é o personagem '
+      }
+    },
+
+    // Season choose configuration according episodes
+    seasonConfig() {
+      if(this.episodes[0].id <= 11) {
+        this.season = 'Primeira Temporada'
+      } else if(this.episodes[0].id >= 12 && this.episodes[0].id <= 21) {
+        this.season = 'Segunda Temporada'
+      } else if(this.episodes[0].id >= 22 && this.episodes[0].id <= 31) {
+        this.season = 'Terceira Temporada'
+      } else if(this.episodes[0].id >= 32 && this.episodes[0].id <= 41) {
+        this.season = 'Quarta Temporada'
+      } else if(this.episodes[0].id >= 42 && this.episodes[0].id <= 51) {
+        this.season = 'Quinta Temporada'
+      }
+    },
+
+    // Species translation by english to portuguese
+    speciesTranslation() {
+      if(this.species === 'Human') {
+        this.specie = 'humana'
+      } else if(this.species === 'Alien') {
+        this.specie = 'alienígena'
+      } else if(this.species === 'Robot') {
+        this.specie = 'robô'
+      } else if(this.species === 'Disease') {
+        this.specie = 'doença'
+      } else {
+        this.specie = this.species
+      }
+    },
+
+    // Method to determine phrase about only one episode of a character
+    episodeAparison() {
+      if(this.episodes.length === 1) {
+        this.aparison = ' e única'
+        this.text2 = 'no episódio'
+      } else {
+        this.text2 = 'nos seguintes episódios'
+      }
+    },
+
+    handleCharacter() {
+      let upperName = this.name.toUpperCase()
+      this.upperName = upperName
+
+      this.statusColorConfig()
+
+      this.genderPhrase()
+
+      this.seasonConfig()
+
+      this.speciesTranslation()
+
+      this.episodeAparison()
     }
   },
 
   mounted() {
-    let upperName = this.name.toUpperCase()
-    this.upperName = upperName
-
-    if(this.status === 'Alive') {
-      this.color = '#87ce87'
-    } else if(this.status === 'Dead') {
-      this.color = '#fd7171'
-      this.colorFilter = 'grayscale(1)'
-      this.opacity = '0.7'
-    } else {
-      this.color = '#f5f5f5'
-    }
-
-    if(this.gender === 'Female') {
-      this.text1 = 'Essa é a personagem '
-    } else {
-      this.text1 = 'Esse é o personagem '
-    }
-
-    if(this.episodes[0].id <= 11) {
-      this.season = 'Primeira Temporada'
-    } else if(this.episodes[0].id >= 12 && this.episodes[0].id <= 21) {
-      this.season = 'Segunda Temporada'
-    } else if(this.episodes[0].id >= 22 && this.episodes[0].id <= 31) {
-      this.season = 'Terceira Temporada'
-    } else if(this.episodes[0].id >= 32 && this.episodes[0].id <= 41) {
-      this.season = 'Quarta Temporada'
-    } else if(this.episodes[0].id >= 42 && this.episodes[0].id <= 51) {
-      this.season = 'Quinta Temporada'
-    }
-
-    if(this.status === 'Alive' && this.gender === 'Female') {
-      this.lifeStatus = 'Viva'
-      this.bgColorText = 'green'
-    } else if(this.status === 'Alive' && this.gender === 'Male') {
-      this.lifeStatus = 'Vivo'
-      this.bgColorText = 'green'
-    } else if(this.status === 'Alive' && this.gender === 'Genderless') {
-      this.lifeStatus = 'Vivo'
-      this.bgColorText = 'green'
-    } else if(this.status === 'Alive' && this.gender === 'unknown') {
-      this.lifeStatus = 'Vivo'
-      this.bgColorText = 'green'
-    } else if(this.status === 'Dead' && this.gender === 'Female') {
-      this.lifeStatus = 'Morta'
-      this.bgColorText = 'red'
-    } else if(this.status === 'Dead' && this.gender === 'Male') {
-      this.lifeStatus = 'Morto'
-      this.bgColorText = 'red'
-    } else if(this.status === 'Dead' && this.gender === 'Genderless') {
-      this.lifeStatus = 'Morto'
-      this.bgColorText = 'red'
-    } else if(this.status === 'Dead' && this.gender === 'unknown') {
-      this.lifeStatus = 'Morto'
-      this.bgColorText = 'red'
-    } else {
-      this.lifeStatus = 'Desconhecido'
-      this.bgColorText = 'gray'
-    }
-
-    if(this.species === 'Human') {
-      this.specie = 'humana'
-    } else if(this.species === 'Alien') {
-      this.specie = 'alienígena'
-    } else if(this.species === 'Robot') {
-      this.specie = 'robô'
-    } else if(this.species === 'Disease') {
-      this.specie = 'doença'
-    } else {
-      this.specie = this.species
-    }
-
-    if(this.episodes.length === 1) {
-      this.aparison = ' e única'
-      this.text2 = 'no episódio'
-    } else {
-      this.text2 = 'nos seguintes episódios'
-    }
+    this.handleCharacter()
   }
 
 }
@@ -159,15 +193,83 @@ export default {
 <style scoped>
 
 main {
-  height: 150vh;
+  height: 100vh;
   background: url(../assets/media/images/outerspace.gif);
   background-size: cover;
 }
 
-#imagem {
+#divImage {
+  width: 25%; 
+  height: 25%;
+  border: 15px ridge;
+}
+
+#image {
   width: 100%;
   height: 100%;
   padding: 2px;
+}
+
+#divText {
+  width: 60%;
+  border: 2px dashed white;
+  margin-right: auto;
+  margin-left: auto;
+  padding-top: 8px;
+  padding-bottom: 40px;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+@media (max-width: 1299.98px) {
+  #divImage{
+    width: 40%; 
+    height: 40%;
+    border: 12px ridge;
+  }
+
+  #divText {
+    width: 75%;
+  }
+
+}
+
+@media (max-width: 949.98px) {
+  #divImage{
+    width: 50%; 
+    height: 50%;
+    border: 10px ridge;
+  }
+
+  #divText {
+    width: 85%;
+  }
+
+  p {
+    font-size: 1em;
+  }
+}
+
+@media (max-width: 649.98px) {
+  #divImage{
+    width: 60%; 
+    height: 60%;
+    border: 8px ridge;
+  }
+
+  #divText {
+    width: 95%;
+  }
+
+  p {
+    font-size: 0.8em;
+  }
+}
+
+@media (max-height: 639.98px) {
+  main {
+    height: 115vh;
+  }
 }
 
 </style>

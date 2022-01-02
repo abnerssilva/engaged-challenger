@@ -1,8 +1,11 @@
 <template>
-  <div id="application" class="home">
-    <div class="sticky top-0 z-10 bg-gray-700"> 
+  <main id="application" class="home">
+    <!-- Header -->
+    <header class="sticky top-0 z-10 bg-gray-700"> 
+      <!-- Title -->
 			<em><h1 id="title" class="poppins text-center text-white pt-2 mb-3">Rick and Morty App</h1></em>
 			
+      <!-- Pagination Buttons -->
       <div class="flex justify-center">
         <div id="pagination" class="mb-5 flex justify-between w-1/2">
           <Button class="p-button-secondary p-button-rounded p-button-sm" label="First" icon="pi pi-check" iconPos="left" @click="firstPage()" />
@@ -12,6 +15,7 @@
         </div>
       </div>
 
+      <!-- Search Field -->
 			<div id="search" class="pb-2 flex justify-center">
 				<span class="p-input-icon-left">
 					<i class="pi pi-search" />
@@ -19,16 +23,20 @@
 				</span>
         <Button class="p-button-secondary p-button-lg" :label="label" icon="pi pi-check" iconPos="right" @click="searchOrReset()" />
 			</div>
-		</div>
+		</header>
 
-    <div>
+    <section>
+      <!-- Query -->
       <ApolloQuery 
-      :query="require('../graphql/allCharacters.graphql')"
-      :variables="{ page, filter }"
-      :update="data => data.characters.results"
-    >
-      <template v-slot="{ result: { data, loading, error } }">
+        :query="require('../graphql/allCharacters.graphql')"
+        :variables="{ page, filter }"
+        :update="data => data.characters.results"
+      >
+        <template v-slot="{ result: { data, loading, error } }">
+          <!-- Loading condition -->
           <div v-if="loading"><Loading /></div>
+
+          <!-- Data Condition -->
           <div v-else-if="data">
             <section id="main">
               <div class="m-auto pt-4" v-for="character in data" :key="character.id">
@@ -44,15 +52,17 @@
               </div>
             </section> 
           </div>
+
+          <!-- Error Condition -->
           <div class="error-class" v-else-if="error">
-          <Error 
-            :error="error"
-          />
-        </div>
-      </template>
-    </ApolloQuery>
-    </div>
-  </div>
+            <Error 
+              :error="error"
+            />
+          </div>
+        </template>
+      </ApolloQuery>
+    </section>
+  </main>
 </template>
 
 <script>
@@ -83,18 +93,16 @@ export default {
   },
 
   mounted() {
-    const application = document.querySelector('#application')
-    setTimeout(() => {
-      application.classList.add('animate')
-    }, 1500)
-    
+    this.animationEntrance()
   },
 
   methods: {
+    // Method to reach the first page of characters graphQL query
     firstPage() {
       this.page = 1
     },
 
+    // Method to reach the previous page of characters graphQL query
     previousPage() {
       if(this.page === 1) {
         this.page = 1
@@ -104,6 +112,7 @@ export default {
       }
     },
 
+    // Method to reach the next page of characters graphQL query
     nextPage() {
       if(this.page === 42) {
         this.page = 42
@@ -113,10 +122,12 @@ export default {
       }
     },
 
+    // Method to reach the last page of characters graphQL query
     lastPage() {
       this.page = 42
     },
 
+    // Method to reach the searched character or rest to show all characters on graphQL query
     searchOrReset() {
       const inputSearch = document.querySelector('.p-input')
 
@@ -137,8 +148,15 @@ export default {
         this.label = 'Reset'
         this.name = ''
       }
-      
     },
+
+    // Method to animate the App's first page entrance
+    animationEntrance() {
+      const application = document.querySelector('#application')
+      setTimeout(() => {
+        application.classList.add('animate')
+      }, 1500)
+    }
   }
 
 }

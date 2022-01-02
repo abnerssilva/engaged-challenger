@@ -1,13 +1,17 @@
 <template>
-  <div class="about">
+  <main class="about">
+    <!-- Query -->
     <ApolloQuery 
       :query="require('../graphql/character.graphql')"
       :variables="{ id }"
       :update="data => data.character"
     >
       <template v-slot="{ result: { data, loading, error } }">
-        <div v-if="loading"><Loading /></div>
-        <div v-else-if="data">
+        <!-- Loading Condition -->
+        <section v-if="loading"><Loading /></section>
+
+        <!-- Data Condition -->
+        <section v-else-if="data">
           <Character 
             :id="data.id"
             :name="data.name"
@@ -20,15 +24,17 @@
             :episodes="data.episode"
             :createdAt="data.created"
           />
-        </div>  
-        <div class="error-class" v-else-if="error">
+        </section> 
+
+         <!-- Error Condition -->
+        <section class="error-class" v-else-if="error">
           <Error 
             :error="error"
           />
-        </div>     
+        </section>     
       </template>
     </ApolloQuery>
-  </div>
+  </main>
 </template>
 
 <script>
@@ -52,8 +58,3 @@ export default {
   },
 }
 </script>
-
-<style >
-
-
-</style>

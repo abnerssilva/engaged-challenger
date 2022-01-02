@@ -1,7 +1,10 @@
 <template>
   <main id="character">
+    <!-- Card -->
     <div class="card mb-9">
       <div class="card__inner" :class="'new-class-'+id">
+
+        <!-- Card Front face -->
         <div class="card__face card__face--front block">
           <img :src="image" loading="lazy" alt="" class="pp-front mt-9" />
           <div class="flex justify-center">
@@ -10,14 +13,15 @@
           <p class="w-full text-center text-xs mb-2 text-gray-300 cursor-pointer absolute bottom-0" @click="flipFront()">{{ label }}</p>
         </div>
         
+        <!-- Card Back face -->
         <div class="card__face card__face--back">
           <div class="card__content">
-            <div class="card__header">
+            <header class="card__header">
               <h2>{{ shortName }}</h2>
               <img :src="image" loading="lazy" alt="" class="pp mt-2" />
               <p class="w-full text-center text-xs mt-1 text-gray-300 cursor-pointer" @click="flipBack()">{{ label }}</p>
-            </div>
-            <div class="card__body">
+            </header>
+            <section class="card__body">
               <h3 class="arcade text-center">Info</h3>                      
               <p class="digital">Status: {{ status }}</p>                       
               <p class="digital">Planeta: {{ this.character.planet }}</p>
@@ -27,7 +31,7 @@
                   <Button class="p-button-success p-button-text p-button-sm" label="Ver Detalhes" icon="pi pi-check" iconPos="left" />
                 </router-link>
               </div>
-            </div>
+            </section>
           </div>
         </div>
       </div>
@@ -67,6 +71,7 @@ export default {
   },
 
   methods:{
+      // Method to flip the character card to front
       flipFront() {
           let card = document.querySelector(`.new-class-${this.id}`);
           setTimeout(() => {
@@ -75,6 +80,7 @@ export default {
           card.classList.toggle('is-flipped');
       },
 
+      // Method to flip the character card to back
       flipBack() {
           let card = document.querySelector(`.new-class-${this.id}`);
           setTimeout(() => {
