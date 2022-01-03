@@ -1,7 +1,7 @@
 <template>
   <main class="character">
     <!-- Button to First page app -->
-    <a href="/characters"><Button class="p-button-info p-button-text p-button-sm" label="Voltar aos Cards" icon="pi pi-angle-double-left" iconPos="left" /></a>
+    <a href="/"><Button class="p-button-info p-button-text p-button-sm" label="Home" icon="pi pi-angle-double-left" iconPos="left" /></a>
     
     <!-- Character picture -->
     <section class="flex justify-center">
