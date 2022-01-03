@@ -3,7 +3,7 @@
 
 Projeto não precisa ser executado para testes. Publiquei a aplicação como um subdomínio do meu site. [Clique aqui para testar a aplicação](http://engagedchallenger.abnersouza.dev.br)
 
-Aplicação desevolvida como parte do processo seletivo para o cargo de Pessoa Desenvolverdora Front-end Plena Vue.js na EngagED S.A.
+Aplicação desenvolvida como parte do processo seletivo para o cargo de Pessoa Desenvolvedora Front-end Plena Vue.js na EngagED S.A.
 
 
 ## Considerações
