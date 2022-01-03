@@ -1,7 +1,7 @@
 <template>
   <main class="character">
     <!-- Button to First page app -->
-    <a href="/"><Button class="p-button-info p-button-text p-button-sm" label="Home" icon="pi pi-angle-double-left" iconPos="left" /></a>
+    <router-link to="/characters"><Button class="p-button-info p-button-text p-button-sm" label="Ver todos os Cards" icon="pi pi-angle-double-left" iconPos="left" /></router-link>
     
     <!-- Character picture -->
     <section class="flex justify-center">

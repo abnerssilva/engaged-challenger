@@ -1,7 +1,7 @@
 <template>
   <main class="episode" :style="'background: '+background+';'">
     <!-- Button to First page app -->
-    <a href="/"><Button class="p-button-info p-button-text p-button-sm" label="Home" icon="pi pi-angle-double-left" iconPos="left" /></a>
+    <router-link to="/characters"><Button class="p-button-info p-button-text p-button-sm" label="Ver todos os Cards" icon="pi pi-angle-double-left" iconPos="left" /></router-link>
 
     <!-- Episode Info -->
     <div id="info" class="mx-auto border-dashed border-white border-2 px-4 pt-2 pb-10">
