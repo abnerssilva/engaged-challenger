@@ -6,7 +6,7 @@
     <!-- Character picture -->
     <section class="flex justify-center">
       <figure id="divImage" class="mb-5 bg-white" :style="'border-color: '+color+';'">
-        <img id="image" :src="image" alt="foto do personagem" :style="'filter: '+colorFilter+';'+' opacity: '+opacity+';'">
+        <img id="image" :src="image" alt="foto do personagem" :style="'filter: '+colorFilter+';'+' opacity: '+opacity+';'" @mouseover="mouseOverColor()" @mouseout="mouseOutColor()">
       </figure> 
     </section>
 
@@ -14,7 +14,7 @@
     <section id="divText">
       <p class="poppins text-justify text-white">
         {{ text1 }}<strong>{{ upperName }}</strong> da série Rick and Morty. Sua espécie é {{ specie }} e sua primeira{{ aparison}} aparição no seriado foi no episódio "<em>{{ episodes[0].name }}</em>" exibido na {{ season }}.
-        Seu estado de vida atual no seriado é: <span :style="'background-color: '+bgColorText+';'">&nbsp;{{ lifeStatus }}&nbsp;</span>.
+        Seu estado de vida atual no seriado é: <span :style="'color: '+colorText+';'">&nbsp;{{ lifeStatus }}&nbsp;</span>.
       </p><br>
       <p class="poppins text-white text-justify">
         {{ name }} aparece {{ text2 }}: <small>(clique no episódio para saber detalhes específicos dele)</small><br>
@@ -58,7 +58,7 @@ export default {
     return {
       color: '',
       colorFilter: 'none',
-      bgColorText: '',
+      colorText: '',
       opacity: '1',
       upperName: '',
       text1: '',
@@ -90,31 +90,45 @@ export default {
 
       if(this.status === 'Alive' && this.gender === 'Female') {
         this.lifeStatus = 'Viva'
-        this.bgColorText = 'green'
+        this.colorText = 'green'
       } else if(this.status === 'Alive' && this.gender === 'Male') {
         this.lifeStatus = 'Vivo'
-        this.bgColorText = 'green'
+        this.colorText = 'green'
       } else if(this.status === 'Alive' && this.gender === 'Genderless') {
         this.lifeStatus = 'Vivo'
-        this.bgColorText = 'green'
+        this.colorText = 'green'
       } else if(this.status === 'Alive' && this.gender === 'unknown') {
         this.lifeStatus = 'Vivo'
-        this.bgColorText = 'green'
+        this.colorText = 'green'
       } else if(this.status === 'Dead' && this.gender === 'Female') {
         this.lifeStatus = 'Morta'
-        this.bgColorText = 'red'
+        this.colorText = 'red'
       } else if(this.status === 'Dead' && this.gender === 'Male') {
         this.lifeStatus = 'Morto'
-        this.bgColorText = 'red'
+        this.colorText = 'red'
       } else if(this.status === 'Dead' && this.gender === 'Genderless') {
         this.lifeStatus = 'Morto'
-        this.bgColorText = 'red'
+        this.colorText = 'red'
       } else if(this.status === 'Dead' && this.gender === 'unknown') {
         this.lifeStatus = 'Morto'
-        this.bgColorText = 'red'
+        this.colorText = 'red'
       } else {
         this.lifeStatus = 'Desconhecido'
-        this.bgColorText = 'gray'
+        this.colorText = 'gray'
+      }
+    },
+
+    mouseOverColor() {
+      if(this.status === 'Dead') {
+        this.colorFilter = 'none'
+        this.opacity = 1
+      }
+    },
+
+    mouseOutColor() {
+      if(this.status === 'Dead') {
+        this.colorFilter = 'grayscale(1)'
+        this.opacity = 0.7
       }
     },
 
